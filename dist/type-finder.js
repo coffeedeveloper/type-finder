@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports.GetValue = GetValue;
+exports.GetFinderValue = GetFinderValue;
 exports.Finder = Finder;
 var toString = function toString(obj) {
   return Object.prototype.toString.call(obj);
@@ -141,7 +141,7 @@ var finder = function finder(obj, type, selector) {
   return foundResult;
 };
 
-function GetValue(obj, selector) {
+function GetFinderValue(obj, selector) {
   return getValue(obj, selector);
 }
 
