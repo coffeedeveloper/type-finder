@@ -1,3 +1,5 @@
+var TypeFinder = require('../dist/type-finder');
+
 var test = {
   str0: 'wowowowow',
   obj0: {
@@ -15,3 +17,17 @@ var test = {
     arr3: ['ni mei']
   }
 };
+
+var config = {
+  format: 'dot'
+};
+
+var result;
+
+result = TypeFinder.Finder(test, 'Number', config);
+console.log(result);
+console.log(JSON.stringify(result));
+
+result = TypeFinder.Finder(test, 'Array', config);
+console.log(result);
+console.log(JSON.stringify(result));

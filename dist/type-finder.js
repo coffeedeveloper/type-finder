@@ -84,6 +84,42 @@ var clone = function clone() {
   return result;
 };
 
+var extend = function extend() {
+  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+
+  var result = {};
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
+
+  try {
+    for (var _iterator2 = args[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var obj = _step2.value;
+
+      for (var p in obj) {
+        result[p] = obj[p];
+      }
+    }
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+        _iterator2['return']();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
+      }
+    }
+  }
+
+  return result;
+};
+
 var clear = function clear() {
   foundResult = [];
 };
@@ -110,7 +146,14 @@ function GetValue(obj, selector) {
 }
 
 function Finder(obj, type) {
-  var opts = arguments[2] === undefined ? {} : arguments[2];
+  var options = arguments[2] === undefined ? {} : arguments[2];
+
+  var defaults = {
+    full: false,
+    format: '',
+    deep: false
+  };
+  var opts = extend({}, defaults, options);
 
   return finder(obj, type, []).map(function (d) {
     var name = output(d, opts.format);
