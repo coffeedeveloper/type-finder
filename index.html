@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="render" content="webkit">
+    <title>Type-Finder</title>
+    <style>
+      textarea { width: 100%; height: 200px; }
+    </style>
+  </head>
+  <body>
+    <h4>Type Finder是用于查找JSON对象里面指定类型的一个类型查找器</h4>
+    <p>比如我需要知道某个接口返回来的所有数组有那些或者为空的数据有那些</p>
+    <textarea id="input">
+      {
+        "str0":"this str0",
+        "obj0": {
+          "str1": "this str1",
+          "arr0": [1,2,3],
+          "arr1": ["s1","s2"]
+        },
+        "obj1": {
+          "obj2": {
+            "num0": 1,
+            "arr2": ["- -"]
+          }
+        },
+        "obj3": {
+          "arr3": [null]
+        },
+        "isnull": null
+      }
+    </textarea>
+    <select id="opts">
+      <option value="String">字符串</option>
+      <option value="Array">数组</option>
+      <option value="Number">数字</option>
+      <option value="Null">空</option>
+      <option value="Object">对象</option>
+    </select>
+    <label>
+      选择符类型
+      <select id="selector">
+        <option value="">括号</option>
+        <option value="dot">点号</option>
+      </select>
+    </label>
+    <label>
+      <input id="deep" type="checkbox">是否深层查找（深层查找会遍历数据查找每个子项）
+    </label>
+    <label>
+      <input id="full" type="checkbox">是否完整输出（默认只输出选择符）
+    </label>
+    <button id="btn" type="button">查询</button>
+    <div id="output">
+    </div>
+    <script src="dist/type-finder.js"></script>
+    <script>
+      var text = document.getElementById('input');
+      var output = document.getElementById('output');
+      var opts = document.getElementById('opts');
+      var deep = document.getElementById('deep');
+      var btn = document.getElementById('btn');
+      var selector = document.getElementById('selector');
+      var full = document.getElementById('full');
+
+      btn.addEventListener('click', function (e) {
+        try {
+          var obj = JSON.parse(text.value);
+          var type = opts.value;
+          var isDeep = deep.checked;
+          var format = selector.value;
+          var isFull = full.checked;
+          var result = window.main.Finder(obj, type, {
+            full: isFull,
+            deep: isDeep,
+            format: format
+          });
+
+          var html = [];
+          for (var i = 0; i < result.length; i++) {
+            if (isFull) {
+              html.push('<li>' + JSON.stringify(result[i]) + '</li>');
+            } else {
+              html.push('<li>' + result[i] + '</li>');
+            }
+          }
+
+          output.innerHTML = '<ul>' + html.join('') + '</ul>';
+
+        } catch (e) {
+          alert('JSON字符串不符合规范');
+        }
+      });
+    </script>
+  </body>
+</html>

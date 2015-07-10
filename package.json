@@ -1,6 +1,6 @@
 {
   "name": "type-finder",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "find javascript object type selector",
   "main": "lib/main.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "babel lib/main.js -w -o dist/type-finder.js",
-    "pub": "babel lib/main.js --out-file dist/type-finder.js",
+    "pub": "babel lib/main.js --out-file dist/type-finder.js --modules umd",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

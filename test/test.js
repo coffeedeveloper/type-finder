@@ -15,19 +15,25 @@ var test = {
   },
   obj3: {
     arr3: ['ni mei']
-  }
+  },
+  kao: [
+    [1, 3, 4]
+  ]
 };
 
 var config = {
-  format: 'dot'
+  //format: 'dot'
+  full: true
 };
 
 var result;
 
-result = TypeFinder.Finder(test, 'Number', config);
+result = TypeFinder.Finder(test, 'Number', { full: true });
 console.log(result);
-console.log(JSON.stringify(result));
+result = TypeFinder.Finder(test, 'Number', { full: true, deep: true });
+console.log(result);
 
-result = TypeFinder.Finder(test, 'Array', config);
+result = TypeFinder.Finder(test, 'Array', { full: true });
 console.log(result);
-console.log(JSON.stringify(result));
+result = TypeFinder.Finder(test, 'Array', { full: true, deep: true });
+console.log(result);
